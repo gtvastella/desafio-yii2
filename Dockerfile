@@ -17,6 +17,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/
 
+COPY ./app/composer.json ./app/composer.lock* /var/www/
+
 RUN if [ ! -d /var/www/vendor ]; then \
     composer install --no-dev --optimize-autoloader; \
     fi
