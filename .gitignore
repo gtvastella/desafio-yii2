@@ -1,0 +1,17 @@
+.env
+*.local
+/vendor/
+composer.lock
+/runtime/
+/web/assets/
+/.idea/
+/*.sublime-workspace
+/*.sublime-project
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+*.log

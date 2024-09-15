@@ -1,0 +1,29 @@
+version: '3'
+services:
+  app:
+    container_name: yii2
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    volumes:
+      - ./app:/var/www
+    ports:
+      - "80:80"
+    restart: always
+    depends_on:
+      - db 
+    environment:   
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+  db:
+    container_name: db-yii2
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+
+volumes:
+  db-data: {}
