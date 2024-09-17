@@ -43,9 +43,6 @@ Certifique-se de que você tem as seguintes ferramentas instaladas:
     MYSQL_DATABASE=your_mysql_database
     ```
 
-    ```bash
-    make
-    ```
 3. **Suba o container:**
 
     Utilize o auxiliar make para iniciar:
@@ -76,35 +73,36 @@ Pronto! A aplicação já está pronta e disponível para funcionar.
 
 Após a primeira inicialização, a aplicação já vai estar funcionando. Caso contrário, você pode iniciar usando o mesmo comando:
 
-```bash
-make run
-```
-OU (sem make)
-```bash
-docker up -d
-```
+- **Ligar**
+    ```bash
+    make run
+    ```
+    OU (sem make)
+    ```bash
+    docker up -d
+    ```
 
-Caso seja necessário desligar:
-
-```bash
-make stop
-```
-OU (sem make)
-```bash
-docker compose down
-```
+- **Desligar**
+    
+    ```bash
+    make stop
+    ```
+    OU (sem make)
+    ```bash
+    docker compose down
+    ```
 
 ### 🧑‍💻 Criar um Usuário 
 
-Para criar um usuário, utilize o seguinte comando:
+- **Para criar um usuário, use o comando:**
 
-```bash
-make create-user name=<nome> login=<login> password=<senha>
-```
-OU (sem make)
-```bash
-docker exec -it yii2 php yii user/create <nome> <login> <senha>
-```
+    ```bash
+    make create-user name=<nome> login=<login> password=<senha>
+    ```
+    OU (sem make)
+    ```bash
+    docker exec -it yii2 php yii user/create <nome> <login> <senha>
+    ```
 
 ### 📚 Documentação
 
