@@ -1,7 +1,5 @@
 <?php
 
-use Dotenv\Dotenv;
-
 return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=' . getenv("DB_HOST") . ';dbname=' . getenv("MYSQL_DATABASE"),

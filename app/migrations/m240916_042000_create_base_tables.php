@@ -19,6 +19,7 @@ class m240916_042000_create_base_tables extends Migration
             'isbn' => $this->string(13)->notNull()->unique(),
             'price' => $this->decimal(10, 2)->notNull(),
             'stock' => $this->integer()->notNull(),
+            's3_image_path' => $this->string(255)->null(),
         ]);
 
         $this->createTable('customer', [
@@ -27,11 +28,12 @@ class m240916_042000_create_base_tables extends Migration
             'cpf' => $this->string(11)->notNull()->unique(),
             'cep' => $this->string(8)->notNull(),
             'address' => $this->string(255)->notNull(),
-            'number' => $this->string(10)->notNull(),
+            'number' => $this->integer()->null(),
             'city' => $this->string(100)->notNull(),
             'state' => $this->string(2)->notNull(), 
             'complement' => $this->string(255)->null(),
             'sex' => $this->integer()->notNull(),
+            's3_image_path' => $this->string(255)->null(),
         ]);
 
         $this->createTable('user', [

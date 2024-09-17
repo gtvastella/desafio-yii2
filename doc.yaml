@@ -1,0 +1,446 @@
+openapi: 3.0.3
+info:
+  title: Desafio Yii2
+  description: |-
+    Desafio de backend em Yii2
+    Por Gabriel Vastella
+    
+    Links
+    - [Gabriel Vastella](https://github.com/gtvastella)
+    - [GitHub Repo](https://github.com/gtvastella/desafio-yii2)
+    
+  version: 1.0.0
+servers:
+  - url: http://localhost/api
+paths:
+  /login:
+    post:
+      summary: Autentica o usuário e retorna um token Bearer
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                password:
+                  type: string
+              required:
+                - login
+                - password
+      responses:
+        '200':
+          description: Login efetuado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  token:
+                    type: string
+                  message:
+                    type: string
+                    example: "Login efetuado com sucesso"
+        '400':
+          description: Erro ao autenticar usuário
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+
+  /create-customer:
+    post:
+      summary: Cria um novo cliente
+      operationId: createCustomer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                cpf:
+                  type: string
+                address:
+                  type: object
+                  properties:
+                    cep:
+                      type: string
+                    publicArea:
+                      type: string
+                    number:
+                      type: string
+                    city:
+                      type: string
+                    state:
+                      type: string
+                    complement:
+                      type: string
+                sex:
+                  type: string
+                  enum: [M, F]
+              required:
+                - name
+                - cpf
+                - address
+                - sex
+      responses:
+        '200':
+          description: Cliente cadastrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Cliente cadastrado com sucesso"
+                  customer:
+                    type: integer
+        '400':
+          description: Erro ao cadastrar cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+
+  /list-customers:
+    get:
+      summary: Lista clientes com base nos parâmetros de consulta e ordenação
+      operationId: listCustomers
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            example: 100
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            example: 0
+        - name: cpf
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            example: name
+            enum: [name, -name, cpf, -cpf, city, -city]
+      responses:
+        '200':
+          description: Clientes encontrados com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Foram encontrados 10 clientes"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        cpf:
+                          type: string
+                        address:
+                          type: string
+                        city:
+                          type: string
+                        state:
+                          type: string
+                        complement:
+                          type: string
+                        sex:
+                          type: string
+        '400':
+          description: Erro ao listar clientes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+
+  /create-book:
+    post:
+      summary: Cria um novo livro
+      operationId: createBook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isbn:
+                  type: string
+                title:
+                  type: string
+                author:
+                  type: string
+                price:
+                  type: number
+                  format: float
+                stock:
+                  type: integer
+              required:
+                - isbn
+                - price
+                - stock
+      responses:
+        '200':
+          description: Livro cadastrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Livro cadastrado com sucesso"
+                  book:
+                    type: integer
+        '400':
+          description: Erro ao cadastrar livro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+
+  /list-books:
+    get:
+      summary: Lista livros com base nos parâmetros de consulta e ordenação
+      operationId: listBooks
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            example: 100
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            example: 0
+        - name: title
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: author
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: isbn
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            example: title
+            enum: [title, -title, price, -price]
+      responses:
+        '200':
+          description: Livros encontrados com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Foram encontrados 5 livros"
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        isbn:
+                          type: string
+                        title:
+                          type: string
+                        author:
+                          type: string
+                        price:
+                          type: number
+                          format: float
+                        stock:
+                          type: integer
+        '400':
+          description: Erro ao listar livros
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+
+  /upload-book-img:
+    post:
+      summary: Faz upload de uma imagem para um livro
+      operationId: uploadBookImg
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                bookId:
+                  type: integer
+                img:
+                  type: string
+                  format: binary
+              required:
+                - bookId
+                - img
+      responses:
+        '200':
+          description: Imagem salva com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Imagem salva com sucesso"
+                  path:
+                    type: string
+        '400':
+          description: Erro ao salvar imagem
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+
+  /upload-customer-img:
+    post:
+      summary: Faz upload de uma imagem para um cliente
+      operationId: uploadCustomerImg
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: integer
+                img:
+                  type: string
+                  format: binary
+              required:
+                - customerId
+                - img
+      responses:
+        '200':
+          description: Imagem salva com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Imagem salva com sucesso"
+                  path:
+                    type: string
+        '400':
+          description: Erro ao salvar imagem
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+         

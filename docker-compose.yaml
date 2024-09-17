@@ -12,11 +12,16 @@ services:
       - "80:80"
     restart: always
     depends_on:
-      - db 
+      db:
+        condition: service_healthy
     environment:   
-      MYSQL_ROOT_PASSWORD: desafiopass
-      MYSQL_DATABASE: yii2
-      DB_HOST: db
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      DB_HOST: ${DB_HOST}
+      JWT_SECRET: ${JWT_SECRET}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_BUCKET_NAME: ${AWS_BUCKET_NAME}
   db:
     container_name: db-yii2
     image: mysql:8.0
@@ -24,18 +29,13 @@ services:
       - "3306:3306"
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: desafiopass
-      MYSQL_DATABASE: yii2
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     volumes:
       - ./my.cnf:/etc/mysql/my.cnf
-  adminer:
-    container_name: adminer-yii2
-    image: adminer
-    ports:
-      - "8080:8080"
-    restart: always
-    depends_on:
-      - db
-
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 10s
+      retries: 5
 volumes:
   db-data: {}

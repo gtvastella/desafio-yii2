@@ -14,8 +14,10 @@ $config = [
     ],
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'CCNnIUckT2lA8EtFR8CvVuwei8ALV9LI',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],          
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -26,6 +28,7 @@ $config = [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
+            'class' => 'app\components\ExceptionHandler',
         ],
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,
