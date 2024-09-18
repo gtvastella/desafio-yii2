@@ -19,7 +19,7 @@ Certifique-se de que você tem as seguintes ferramentas instaladas:
 1. **Clone o repositório:**
 
     ```bash
-    git clone https://github.com/<seu-nome-de-usuario>/desafio-yii2.git
+    git clone https://github.com/gtvastella/desafio-yii2.git
     cd desafio-yii2
     ```
 
