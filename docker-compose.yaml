@@ -36,6 +36,6 @@ services:
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "--silent"]
       interval: 10s
-      retries: 5
+      retries: 10
 volumes:
   db-data: {}
