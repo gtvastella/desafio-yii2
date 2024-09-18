@@ -35,6 +35,7 @@ class Customer extends ActiveRecord
             ['cep', 'match', 'pattern' => '/^\d{8}$/', 'message' => 'CEP deve conter exatamente 8 dígitos.'],  
             ['cpf', 'validateCPF'],
             ['cep', 'validateCEP'],
+            [['state'], 'in', 'range' => ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'], 'message' => 'Estado inválido.'],
             ['sex', 'in', 'range' => [self::MALE_SEX, self::FEMALE_SEX], 'message' => 'Sexo inválido.'],
             ['cpf', 'unique', 'message' => 'CPF já cadastrado.'],
             [['s3_image_path'], 'string', 'max' => 255],

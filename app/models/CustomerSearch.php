@@ -17,7 +17,6 @@ class CustomerSearch extends Customer
 
     public function rules()
     {
-        // Defina regras de validação para os atributos de pesquisa
         return [
             [self::SORTABLE_FIELDS, 'safe'],
         ];
