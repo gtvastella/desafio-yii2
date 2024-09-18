@@ -111,3 +111,11 @@ A documentação da API está disponível nos seguintes formatos:
 - **Swagger YAML**: [doc.yaml](/doc.yaml)
 - **Coleção Postman**: [collection.json](/collection.json)
 
+### 💻 Outros comandos
+
+- **Para ajuda e listagem de todos os comandos**
+
+    ```bash
+    make
+    ```
+   
